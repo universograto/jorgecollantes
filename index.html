@@ -1,397 +1,484 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Propuesta Energía Grata - Jorge Collantes</title>
-<style>
-  :root{
-    --lime:#f4ff80;
-    --yellow:#fff956;
-    --blue:#a8d5e9;
-    --mist:#d7e3e3;
-    --black:#000;
-    --ink:#0a0a0a;
-    --muted:#556065;
-    --white:#fff;
-    --line:#cbd5d8;
-    --soft:#f5f7f7;
-  }
-  *{box-sizing:border-box}
-  html{background:#edf1f2}
-  body{margin:0;font-family:Avenir,"Avenir Next","Segoe UI",Arial,sans-serif;color:var(--ink);background:#edf1f2;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  a{color:inherit}
-  .toolbar{position:sticky;top:0;z-index:30;display:flex;gap:10px;justify-content:center;align-items:center;padding:10px;background:rgba(0,0,0,.92);color:#fff;font-size:13px}
-  .toolbar button,.toolbar a{border:1px solid #fff;border-radius:999px;padding:8px 14px;background:transparent;color:#fff;text-decoration:none;cursor:pointer;font:inherit}
-  .toolbar .primary{background:var(--lime);border-color:var(--lime);color:#000;font-weight:800}
-  .doc{padding:20px 0 60px}
-  .page{width:210mm;height:297mm;margin:0 auto 18px;background:#fff;padding:12mm 12mm 10mm;position:relative;overflow:hidden;box-shadow:0 10px 34px rgba(0,0,0,.12);display:block;break-inside:avoid;page-break-inside:avoid}
-  .header{height:18mm;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1.2px solid #000;padding-bottom:4mm;flex:0 0 auto}
-  .brand{display:flex;gap:3mm;align-items:center}
-  .brand svg{width:13mm;height:13mm;flex:0 0 auto}
-  .brand-name{font-weight:900;font-size:8mm;letter-spacing:-.45mm;line-height:.85}
-  .brand-tag{font-family:"Courier New",ui-monospace,monospace;font-size:2.1mm;letter-spacing:.45mm;margin-top:2.2mm;text-transform:uppercase}
-  .meta{font-size:2.8mm;text-align:right;line-height:1.4;color:#242424;padding-top:1mm}
-  .meta strong{font-size:3.2mm}
-  h1{font-size:11mm;line-height:1.03;letter-spacing:-.55mm;margin:8mm 0 2.5mm;font-weight:900}
-  h2{font-size:6.3mm;line-height:1.12;letter-spacing:-.2mm;margin:5mm 0 2.8mm;font-weight:900}
-  h3{font-size:4.5mm;line-height:1.15;margin:0 0 1.5mm;font-weight:900}
-  p{font-size:3.45mm;line-height:1.45;margin:0;color:#253035}
-  .lead{font-size:4mm;max-width:180mm;color:#303a3f}
-  .eyebrow{font-family:"Courier New",ui-monospace,monospace;font-size:2.4mm;letter-spacing:.25mm;text-transform:uppercase;margin-bottom:2mm}
-  .grid{display:grid;gap:4mm}
-  .g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .card{border:1px solid var(--line);border-radius:5mm;padding:4.5mm;background:#fff}
-  .card.blue{background:rgba(168,213,233,.34);border-color:#86bfd8}
-  .card.lime{background:rgba(244,255,128,.48);border-color:#b3cb00}
-  .card.black{background:#000;color:#fff;border-color:#000}.card.black p,.card.black .muted{color:#dfe5e6}
-  .card.mist{background:#eef3f3}
-  .tag{display:inline-flex;align-items:center;gap:1.4mm;padding:1.4mm 2.2mm;border-radius:999px;font-size:2.7mm;font-weight:800;background:#fff;border:1px solid #aab5b9}
-  .tag.lime{background:var(--lime);border-color:#b3cb00}.tag.blue{background:var(--blue);border-color:#87bcd3}.tag.dark{background:#000;color:#fff;border-color:#000}
-  .mini{font-size:2.65mm;line-height:1.4;color:#596569}.muted{color:#647176}
-  .big-number{font-size:11mm;font-weight:900;line-height:1;letter-spacing:-.45mm}
-  .mid-number{font-size:7mm;font-weight:900;line-height:1.05;letter-spacing:-.2mm}
-  .price{font-size:6.7mm;font-weight:900;letter-spacing:-.2mm}
-  .info-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2.8mm;margin-top:5mm}
-  .info-row .item{background:#eef3f3;border-radius:4mm;padding:3.2mm;min-height:18mm}
-  .info-row b{font-size:3.5mm}.info-row span{display:block;font-size:2.4mm;color:#627074;margin-bottom:1mm;text-transform:uppercase;font-weight:700}
-  .hero{display:grid;grid-template-columns:1.55fr .85fr;gap:5mm;margin-top:5mm}
-  .spec-list{display:grid;grid-template-columns:1fr;gap:0}
-  .spec{display:grid;grid-template-columns:11mm 1fr;align-items:center;border-bottom:1px solid rgba(0,0,0,.13);padding:2.2mm 0}
-  .spec:last-child{border-bottom:0}.num-badge{width:9mm;height:9mm;border-radius:50%;display:grid;place-items:center;background:var(--yellow);font-size:4.8mm;font-weight:900}.spec b{font-size:5.2mm}.spec small{font-size:3.05mm}
-  .summary-stack{display:grid;gap:2.6mm}.summary{border-radius:4mm;padding:4mm;background:#000;color:#fff;min-height:31mm}.summary.current{outline:2px solid var(--lime)}.summary .label{font-size:2.6mm;color:#cbd5d8;text-transform:uppercase;font-weight:800}.summary.current .label,.summary.current .price,.summary.current .mid-number{color:var(--lime)}
-  .steps{margin-top:4mm;display:grid;grid-template-columns:repeat(3,1fr);gap:3mm}.step{position:relative;border:1px solid var(--line);border-radius:4mm;padding:3.7mm;background:#fff;min-height:27mm}.step .n{width:7mm;height:7mm;border-radius:50%;background:var(--blue);display:grid;place-items:center;font-size:3.7mm;font-weight:900;margin-bottom:2.5mm}.step h3{font-size:3.65mm}.step p{font-size:2.75mm}
-  .statement{margin-top:4mm;padding:4mm 5mm;border-radius:4mm;background:rgba(168,213,233,.25);border:1px solid #a8d5e9;font-size:4.1mm;line-height:1.35}.statement b{font-weight:900}
-  .section-title{display:flex;align-items:center;gap:2mm;margin:5mm 0 3mm}.section-title:before{content:"";width:7mm;height:1.1mm;background:var(--lime);display:block}.section-title h2{margin:0;font-size:5.5mm}
-  .vs{display:grid;grid-template-columns:.86fr 1.14fr;gap:5mm;margin-top:5mm}
-  .rows{display:grid;gap:0}.r{padding:3mm 0;border-bottom:1px solid #d0d8da}.r:last-child{border-bottom:0}.r .k{font-size:2.45mm;text-transform:uppercase;color:#627074;font-weight:800}.r .v{font-size:4mm;font-weight:900;margin-top:.8mm}.r .sub{font-size:2.7mm;color:#5b676b;margin-top:.7mm}
-  .pricing{border-radius:5mm;background:rgba(244,255,128,.44);border:1px solid #b4ca13;padding:4.5mm}.pricing .price-line{display:flex;justify-content:space-between;align-items:end;padding:2.7mm 0;border-bottom:1px solid rgba(0,0,0,.14)}.pricing .price-line:last-of-type{border-bottom:0}.pricing .price-line span{font-size:3mm}.pricing .price-line b{font-size:5mm}.pricing .total{border-top:2px solid #000;margin-top:2mm;padding-top:3mm}.pricing .total b{font-size:6.5mm}
-  .benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5mm;margin-top:3mm}.benefit{border:1px solid var(--line);border-radius:4mm;padding:3.2mm;background:#fff;min-height:31mm}.benefit h3{font-size:3.5mm}.benefit p{font-size:2.55mm}.icon-dot{width:8mm;height:8mm;border-radius:50%;background:var(--blue);margin-bottom:2.5mm;position:relative}.icon-dot:after{content:"";position:absolute;inset:2.5mm;border:1.4px solid #000;border-radius:50%}
-  .calc{margin-top:4mm;border:1px solid var(--line);border-radius:4mm;overflow:hidden}.calc table{width:100%;border-collapse:collapse;font-size:2.7mm}.calc th{background:#eef3f3;padding:2.8mm 2mm;text-align:left;border-bottom:1px solid #aeb9bc}.calc td{padding:3mm 2mm;border-bottom:1px solid #d5dddf;vertical-align:middle}.calc tr:last-child td{border-bottom:0}.calc .recommended td{background:rgba(168,213,233,.28);font-weight:800}.calc .optimized td{background:rgba(244,255,128,.28)}.calc .conservative td{background:#f7f8f8}.calc .money{text-align:right;font-weight:900;font-size:3.2mm}
-  .formula{margin-top:3mm;background:#000;color:#fff;border-radius:4mm;padding:3.7mm 4.5mm;font-size:2.8mm;line-height:1.45}.formula b{color:var(--lime)}
-  .before-after{display:grid;grid-template-columns:1fr 12mm 1fr;align-items:center;gap:2mm;margin-top:4mm;border:1px solid var(--line);border-radius:4mm;padding:4mm;background:#fafbfb}.arrow{width:9mm;height:9mm;border:1px solid #000;border-radius:50%;display:grid;place-items:center;font-size:5mm}.panel-dots{display:grid;grid-template-columns:repeat(11,5mm);gap:1mm;margin-top:2mm}.panel{width:5mm;height:6.5mm;border:1px solid #000;background:var(--blue);background-image:linear-gradient(to right,transparent 48%,#000 50%,transparent 52%),linear-gradient(to bottom,transparent 48%,#000 50%,transparent 52%);background-size:2.5mm 100%,100% 2.2mm}.panel.empty{background:#fff;border-style:dashed}
-  .options{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin-top:4mm}.option{border-radius:5mm;border:1.3px solid var(--line);padding:4mm;display:flex;flex-direction:column;min-height:113mm}.option.opt{background:rgba(244,255,128,.32);border-color:#bfd133}.option.rec{background:rgba(168,213,233,.28);border-color:#4b9fc5;box-shadow:0 0 0 1mm rgba(168,213,233,.23)}.option.cons{background:#f1f5f5}.option .cap{font-size:5.4mm;font-weight:900;margin:3mm 0}.option .metric{padding:2.6mm 0;border-bottom:1px dotted #aeb9bc}.option .metric:last-of-type{border-bottom:0}.option .metric span{font-size:2.55mm;color:#637075;display:block}.option .metric b{font-size:4.4mm}.option .fit{margin-top:auto;padding-top:3mm;border-top:1.3px solid #000;font-size:2.7mm;line-height:1.4}.badge{display:inline-block;background:#000;color:#fff;border-radius:999px;padding:1.2mm 2.2mm;font-size:2.4mm;font-weight:900}.rec .badge{background:#1677a9}
-  .system-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5mm;margin-top:4mm}.system-card{border:1px solid var(--line);border-radius:4mm;padding:3.5mm;text-align:center;min-height:29mm}.system-card b{display:block;font-size:4mm}.system-card span{font-size:2.8mm;color:#556166}
-  .flow{display:grid;grid-template-columns:1fr 9mm 1fr 9mm 1fr 9mm 1fr;align-items:center;margin-top:4mm;border-radius:4mm;background:rgba(168,213,233,.20);border:1px solid #a8d5e9;padding:4mm}.flow-block{text-align:center}.flow-block svg{width:19mm;height:16mm}.flow-block b{display:block;font-size:2.8mm;margin-bottom:2mm}.flow .arr{font-size:6mm;text-align:center}
-  .backup{display:grid;grid-template-columns:.9fr 1fr 1fr;margin-top:4mm;border:1px solid var(--line);border-radius:4mm;overflow:hidden}.backup>div{padding:3.5mm;border-right:1px solid var(--line)}.backup>div:last-child{border-right:0}.backup .title{background:#eef3f3;font-weight:900;font-size:3.4mm}.backup b{font-size:5.4mm}.backup span{font-size:2.6mm;color:#5c696d}
-  .inout{display:grid;grid-template-columns:1fr 1fr;gap:3mm;margin-top:4mm}.list-card{border:1px solid var(--line);border-radius:4mm;padding:3.6mm}.list-card.in{background:rgba(244,255,128,.25);border-color:#c0d21c}.list-card.out{background:rgba(168,213,233,.18);border-color:#8fc5dc}.list-card ul{margin:2mm 0 0;padding-left:5mm}.list-card li{font-size:2.7mm;line-height:1.4;margin:1.1mm 0}
-  .terms{display:grid;grid-template-columns:repeat(4,1fr);gap:2.4mm;margin-top:4mm}.term{border:1px solid var(--line);border-radius:4mm;padding:3mm;min-height:18mm}.term span{display:block;font-size:2.35mm;color:#637075;text-transform:uppercase;font-weight:800}.term b{display:block;font-size:3.25mm;margin-top:1mm}
-  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:2.4mm;margin-top:3mm}.phase{border-top:4px solid var(--lime);background:#f5f7f7;padding:3mm;border-radius:0 0 3mm 3mm}.phase b{font-size:3mm}.phase span{display:block;font-size:2.5mm;color:#5b676b;margin-top:1mm}
-  .impact{margin-top:4mm;background:#000;color:#fff;border-radius:4mm;padding:4mm 5mm;display:grid;grid-template-columns:1fr auto;align-items:center;gap:5mm}.impact b{font-size:4mm;color:var(--lime)}.impact p{color:#e3e8e9;font-size:2.7mm}.impact .sixty{font-size:11mm;font-weight:900;color:var(--lime)}
-  .source-note{margin-top:3mm;font-size:2.35mm;line-height:1.35;color:#657176}
-  .footer{position:absolute;left:12mm;right:12mm;bottom:10mm;padding-top:3mm;border-top:1px solid #000;display:flex;justify-content:space-between;align-items:end;font-family:"Courier New",ui-monospace,monospace;font-size:2.15mm;letter-spacing:.12mm;flex:0 0 auto}.footer b{font-family:Avenir,"Avenir Next","Segoe UI",Arial,sans-serif;font-size:2.45mm}
-  .footer .page-no{font-family:Avenir,"Avenir Next","Segoe UI",Arial,sans-serif;font-weight:900;font-size:2.6mm}
-  .small-caps{font-family:"Courier New",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.18mm}
-  @media(max-width:900px){.toolbar{flex-wrap:wrap}.doc{padding-top:8px}.page{width:100%;height:auto;min-height:0;margin:0 0 10px;padding:24px;box-shadow:none}.header{height:auto}.hero,.vs,.g4,.g3,.options,.system-grid,.benefits,.terms,.timeline,.inout{grid-template-columns:1fr}.info-row{grid-template-columns:1fr 1fr}.backup{grid-template-columns:1fr}.backup>div{border-right:0;border-bottom:1px solid var(--line)}.flow{grid-template-columns:1fr}.flow .arr{transform:rotate(90deg)}.panel-dots{grid-template-columns:repeat(8,5mm)}h1{font-size:44px}.page{overflow:visible}.footer{position:static;left:auto;right:auto;bottom:auto;margin-top:28px}}
-  @media print{
-    @page{size:A4;margin:0}
-    html,body{background:#fff}
-    .toolbar{display:none!important}
-    .doc{padding:0}
-    .page{width:210mm;height:297mm;margin:0;box-shadow:none;break-after:page;page-break-after:always;break-inside:avoid;page-break-inside:avoid}
-    .page:last-child{break-after:auto;page-break-after:auto}
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#F4FF80" />
+  <title>Energía Grata · Propuesta para Jorge Collantes</title>
+  <meta name="description" content="Propuesta técnico-comercial de Energía Grata para Jorge Collantes: sistema híbrido optimizado + 2 aires inverter de 24.000 BTU." />
+  <style>
+    :root{
+      --lime:#F4FF80;
+      --lime-2:#DFFF00;
+      --blue:#A8D5E9;
+      --blue-strong:#236B93;
+      --ice:#EFF5F5;
+      --ink:#0B0B0B;
+      --muted:#5D6468;
+      --line:#D9E1E1;
+      --white:#FFFFFF;
+      --soft:#F7F9F7;
+      --danger:#FF725E;
+      --max:1180px;
+      --radius:28px;
+      --shadow:0 18px 50px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;background:var(--soft);color:var(--ink);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max);margin:auto;padding:0 22px}
+    .nav{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:blur(18px);
+      background:rgba(247,249,247,.86);
+      border-bottom:1px solid rgba(0,0,0,.06)
+    }
+    .navin{height:74px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.03em}
+    .mark{
+      width:40px;height:40px;border:2px solid var(--ink);border-radius:50%;position:relative;flex:0 0 auto
+    }
+    .mark:before,.mark:after{content:"";position:absolute;background:var(--ink)}
+    .mark:before{width:2px;height:100%;left:50%;top:0;transform:translateX(-50%)}
+    .mark:after{height:2px;width:100%;left:0;top:50%;transform:translateY(-50%)}
+    .mark i{position:absolute;width:12px;height:12px;background:var(--lime-2);border-radius:50%;left:5px;top:5px}
+    .links{display:flex;gap:18px;align-items:center;font-size:14px;font-weight:700}
+    .links a{text-decoration:none;color:#34393C}
+    .navcta{padding:10px 15px;border-radius:999px;background:var(--ink);color:white!important}
+    .hero{
+      padding:72px 0 34px;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(168,213,233,.55), transparent 27%),
+        radial-gradient(circle at 15% 5%, rgba(244,255,128,.55), transparent 24%);
+    }
+    .eyebrow{
+      display:inline-flex;gap:8px;align-items:center;padding:7px 11px;border-radius:999px;
+      background:var(--lime);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.08em
+    }
+    h1{font-size:clamp(46px,8vw,92px);line-height:.93;letter-spacing:-.06em;margin:20px 0 20px;max-width:950px}
+    .lead{font-size:clamp(19px,2.4vw,28px);max-width:850px;color:#313739;letter-spacing:-.02em}
+    .hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:20px;margin-top:40px}
+    .card{background:white;border:1px solid rgba(0,0,0,.07);border-radius:var(--radius);padding:28px;box-shadow:0 8px 30px rgba(0,0,0,.04)}
+    .recommend{background:linear-gradient(135deg,var(--lime),#fbffd8)}
+    .recommend h2{font-size:22px;margin:0 0 18px}
+    .mega{font-size:clamp(42px,6vw,72px);line-height:.95;font-weight:950;letter-spacing:-.05em}
+    .mega small{font-size:.38em;letter-spacing:0}
+    .specrow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+    .spec{background:rgba(255,255,255,.72);border-radius:18px;padding:16px}
+    .spec b{font-size:22px;display:block}
+    .summary{background:#0D0D0D;color:white}
+    .summary .label{font-size:13px;color:#BDC4C4;text-transform:uppercase;font-weight:900;letter-spacing:.08em}
+    .summary .price{font-size:44px;font-weight:950;letter-spacing:-.05em;margin:10px 0}
+    .summary .save{color:var(--lime-2);font-weight:900}
+    .compare-old{margin-top:20px;padding-top:20px;border-top:1px solid #333}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+    .metric{background:#fff;border-radius:22px;padding:18px;border:1px solid var(--line)}
+    .metric .k{font-size:12px;text-transform:uppercase;font-weight:900;color:#70777A}
+    .metric .v{font-size:28px;font-weight:950;letter-spacing:-.04em;margin-top:6px}
+    section{padding:78px 0}
+    .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:28px}
+    .section-head h2{font-size:clamp(36px,5vw,60px);line-height:1;letter-spacing:-.05em;margin:0}
+    .section-head p{max-width:520px;color:var(--muted);font-size:18px;margin:0}
+    .story{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .step{border-radius:24px;padding:24px;background:white;border:1px solid var(--line)}
+    .stepnum{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--blue);font-weight:950;margin-bottom:30px}
+    .step h3{font-size:24px;margin:0 0 10px;letter-spacing:-.03em}
+    .step p{margin:0;color:var(--muted)}
+    .arrow-note{margin-top:18px;background:#111;color:#fff;border-radius:24px;padding:22px 24px;font-size:20px}
+    .airgrid{display:grid;grid-template-columns:.75fr 1.25fr;gap:18px}
+    .current{background:#111;color:#fff}
+    .current .bigload{font-size:56px;font-weight:950;letter-spacing:-.05em}
+    .current .muted{color:#BBC2C2}
+    .ac-card{background:linear-gradient(135deg,#EFF9FC,#fff)}
+    .product-title{font-size:30px;font-weight:950;letter-spacing:-.04em;margin:5px 0}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 22px}
+    .chip{padding:8px 11px;border:1px solid #9BBBC7;background:white;border-radius:999px;font-size:13px;font-weight:850}
+    .pricegrid{display:grid;grid-template-columns:1fr auto;gap:10px;border-top:1px dashed #B9C8CC;padding-top:18px;margin-top:8px}
+    .pricegrid b{font-size:28px}
+    .benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+    .benefit{background:white;border:1px solid var(--line);border-radius:20px;padding:18px}
+    .benefit b{display:block;margin-bottom:7px}
+    .benefit p{font-size:14px;color:var(--muted);margin:0}
+    .formula{
+      display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:stretch;margin:26px 0 0
+    }
+    .fbox{padding:18px;background:white;border:1px solid var(--line);border-radius:18px;text-align:center}
+    .fbox b{font-size:28px;display:block}
+    .fop{display:grid;place-items:center;font-size:28px;font-weight:900}
+    .tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+    .tab{border:0;border-radius:999px;padding:12px 18px;font-weight:900;cursor:pointer;background:#E8EEEE}
+    .tab.active{background:var(--ink);color:#fff}
+    .scenario{display:none}
+    .scenario.active{display:block}
+    .sc-card{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .sc-main{padding:32px;border-radius:28px;background:white;border:1px solid var(--line)}
+    .sc-main.reco{background:linear-gradient(135deg,var(--blue),#EAF7FC);border-color:#7EB8D2}
+    .sc-title{font-size:34px;font-weight:950;letter-spacing:-.04em}
+    .sc-kwp{font-size:72px;font-weight:950;letter-spacing:-.06em;margin:14px 0}
+    .list{display:grid;gap:10px}
+    .row{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid var(--line)}
+    .row:last-child{border-bottom:0}
+    .row span:first-child{color:var(--muted)}
+    .row b{white-space:nowrap}
+    .why{background:#111;color:white;padding:28px;border-radius:28px}
+    .why h3{font-size:27px;margin-top:0}
+    .bar{
+      height:14px;border-radius:999px;background:#343434;overflow:hidden;margin:10px 0 20px
+    }
+    .bar i{display:block;height:100%;background:var(--lime-2);border-radius:inherit}
+    .system{display:grid;grid-template-columns:repeat(7,1fr);align-items:center;gap:10px;margin-top:30px}
+    .node{min-height:150px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;display:flex;flex-direction:column;justify-content:space-between}
+    .node .icon{font-size:40px}
+    .flow{text-align:center;font-size:28px}
+    .backup{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+    .backup .card{box-shadow:none}
+    .backup .old{background:#F1F1F1}
+    .backup .new{background:var(--lime)}
+    .backup strong{font-size:52px;display:block;letter-spacing:-.05em}
+    .terms{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .checklist{display:grid;gap:12px}
+    .check{display:flex;gap:12px;align-items:flex-start;padding-bottom:12px;border-bottom:1px dashed #D7DFDF}
+    .dot{width:24px;height:24px;display:grid;place-items:center;border-radius:50%;background:var(--lime);font-size:14px;font-weight:900;flex:0 0 auto}
+    .dot.no{background:var(--blue)}
+    .cta{
+      background:#111;color:white;border-radius:34px;padding:42px;margin-top:20px;
+      display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center
+    }
+    .cta h2{font-size:clamp(32px,5vw,58px);line-height:1;letter-spacing:-.05em;margin:0 0 14px}
+    .buttons{display:flex;flex-direction:column;gap:10px}
+    .btn{display:inline-block;text-decoration:none;padding:14px 18px;border-radius:999px;font-weight:900;text-align:center;background:var(--lime);color:#111}
+    .btn.alt{background:white}
+    .foot{padding:28px 0 45px;color:#6D7476;font-size:13px}
+    .footin{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .source{font-size:13px;color:#737B7E;margin-top:16px}
+    .source a{color:var(--blue-strong)}
+    @media(max-width:900px){
+      .links a:not(.navcta){display:none}
+      .hero-grid,.airgrid,.sc-card,.terms{grid-template-columns:1fr}
+      .metrics{grid-template-columns:1fr 1fr}
+      .story{grid-template-columns:1fr}
+      .benefits{grid-template-columns:1fr 1fr}
+      .specrow{grid-template-columns:1fr}
+      .formula{grid-template-columns:1fr}
+      .fop{min-height:34px}
+      .system{grid-template-columns:1fr}
+      .flow{transform:rotate(90deg)}
+      .cta{grid-template-columns:1fr}
+      .buttons{flex-direction:row;flex-wrap:wrap}
+    }
+    @media(max-width:560px){
+      .wrap{padding:0 16px}
+      .hero{padding-top:48px}
+      h1{font-size:52px}
+      .metrics,.benefits,.backup{grid-template-columns:1fr}
+      section{padding:58px 0}
+      .card{padding:22px}
+      .navin{height:66px}
+      .brand span{font-size:16px}
+      .sc-kwp{font-size:58px}
+      .pricegrid b{font-size:23px}
+      .cta{padding:28px}
+    }
+    @media print{
+      .nav{display:none}
+      body{background:#fff}
+      section,.hero{break-inside:avoid;page-break-inside:avoid}
+      .btn{border:1px solid #111}
+    }
+  </style>
 </head>
 <body>
-<div class="toolbar">
-  <span>Versión web lista para GitHub Pages</span>
-  <button class="primary" onclick="window.print()">Imprimir / guardar PDF</button>
-  <a href="#opciones">Ver opciones</a>
-  <a href="#recomendacion">Ir a recomendación</a>
-</div>
-<main class="doc">
-
-<!-- PAGE 1 -->
-<section class="page">
-  <div class="header">
-    <div class="brand">
-      <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="43" fill="none" stroke="#000" stroke-width="5"/><ellipse cx="50" cy="50" rx="23" ry="43" fill="none" stroke="#000" stroke-width="4"/><line x1="8" y1="50" x2="92" y2="50" stroke="#000" stroke-width="9"/><circle cx="50" cy="50" r="6" fill="#000"/><circle cx="50" cy="19" r="6" fill="#f4ff80" stroke="#000" stroke-width="2"/></svg>
-      <div><div class="brand-name">EnergiaGrata</div><div class="brand-tag">+ grata + sostenible + limpia + humana</div></div>
-    </div>
-    <div class="meta">Propuesta técnico-comercial actualizada<br><strong>Jorge Collantes · Santa Marta</strong><br>01 de septiembre de 2026</div>
-  </div>
-
-  <h1>Sistema híbrido optimizado<br>+ 2 aires inverter</h1>
-  <p class="lead">La idea es simple: <b>no vale la pena instalar más paneles para compensar equipos que consumen demasiado.</b> Primero bajamos el consumo de climatización; después redimensionamos el sistema solar.</p>
-
-  <div class="info-row">
-    <div class="item"><span>Cliente</span><b>Jorge Collantes</b></div>
-    <div class="item"><span>Ubicación</span><b>Santa Marta, Magdalena</b></div>
-    <div class="item"><span>Consumo actual</span><b>1.600 kWh/mes</b></div>
-    <div class="item"><span>Pago actual</span><b>$1.000.000/mes</b></div>
-  </div>
-
-  <div class="hero">
-    <div class="card lime">
-      <div class="eyebrow">propuesta recomendada</div>
-      <div class="spec-list">
-        <div class="spec"><div class="num-badge">01</div><div><b>11,16 kWp</b><br><small>potencia solar física recomendada</small></div></div>
-        <div class="spec"><div class="num-badge">18</div><div><b>18 paneles</b><br><small>620 Wp cada uno</small></div></div>
-        <div class="spec"><div class="num-badge">10</div><div><b>1 inversor híbrido</b><br><small>10 kW</small></div></div>
-        <div class="spec"><div class="num-badge">03</div><div><b>3 baterías de litio</b><br><small>200 Ah · 51,2 V cada una</small></div></div>
-        <div class="spec"><div class="num-badge">02</div><div><b>2 aires inverter Clase A</b><br><small>24.000 BTU · referencia Midea AI Ecomaster Pro</small></div></div>
+  <nav class="nav">
+    <div class="wrap navin">
+      <div class="brand"><div class="mark"><i></i></div><span>Energía Grata</span></div>
+      <div class="links">
+        <a href="#logica">La lógica</a><a href="#aires">Aires</a><a href="#opciones">Opciones</a><a href="#sistema">Sistema</a>
+        <a class="navcta" href="#cierre">Hablemos</a>
       </div>
-      <div style="margin-top:3mm"><span class="tag dark">Escenario balanceado</span> <span class="tag">mejor relación inversión / holgura</span></div>
     </div>
-    <div class="summary-stack">
-      <div class="summary"><div class="label">Referencia solar anterior física</div><div class="mid-number">13,64 kWp</div><div class="price">$83,06 M</div><div class="mini">13,64 × $6.089.242/kWp</div></div>
-      <div class="summary current"><div class="label">Nuevo paquete recomendado</div><div class="mid-number">11,16 kWp</div><div class="price">$74,71 M</div><div class="mini">solar + 2 aires + instalación base</div></div>
-      <div class="summary"><div class="label">Diferencia estimada</div><div class="price">-$8,35 M</div><div class="mini">frente a la referencia física anterior, aun incluyendo 2 aires nuevos</div></div>
-    </div>
-  </div>
+  </nav>
 
-  <div class="section-title"><h2>La lógica en 3 pasos</h2></div>
-  <div class="steps">
-    <div class="step"><div class="n">1</div><h3>No pagamos la ineficiencia</h3><p>Los dos aires actuales sí funcionan, pero el cálculo técnico los modela con una demanda conjunta de 5.000 W.</p></div>
-    <div class="step"><div class="n">2</div><h3>Cambiamos la carga</h3><p>Proponemos dos equipos inverter de 24.000 BTU, Clase A, para bajar la energía destinada a climatización.</p></div>
-    <div class="step"><div class="n">3</div><h3>Redimensionamos</h3><p>Con el nuevo consumo, bajamos de 22 a 18 paneles en la alternativa recomendada.</p></div>
-  </div>
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Propuesta técnico-comercial · Agosto 2026</div>
+      <h1>Menos consumo.<br>Mejor sistema.</h1>
+      <p class="lead">Para Jorge Collantes proponemos dejar de dimensionar el sistema solar alrededor de dos aires de alto consumo. Primero hacemos eficiente la climatización y luego ajustamos la solución híbrida a esa nueva realidad.</p>
 
-  <div class="statement"><b>Resultado:</b> Jorge mejora sus aires, reduce consumo y puede contratar un sistema solar más pequeño. La inversión deja de financiar ineficiencia y empieza a financiar eficiencia.</div>
-
-  <div class="footer"><div><b>Energía Grata</b> · SOSTENIBLE · LIMPIA · HUMANA</div><div class="page-no">01 / 06</div></div>
-</section>
-
-<!-- PAGE 2 -->
-<section class="page">
-  <div class="header">
-    <div class="brand"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="43" fill="none" stroke="#000" stroke-width="5"/><ellipse cx="50" cy="50" rx="23" ry="43" fill="none" stroke="#000" stroke-width="4"/><line x1="8" y1="50" x2="92" y2="50" stroke="#000" stroke-width="9"/><circle cx="50" cy="50" r="6" fill="#000"/></svg><div><div class="brand-name">EnergiaGrata</div><div class="brand-tag">conectate al cambio</div></div></div>
-    <div class="meta">La claridad más importante<br><strong>Primero eficiencia, luego más paneles</strong></div>
-  </div>
-
-  <h1>¿Qué cambia con los aires?</h1>
-  <p class="lead" style="color:#277fa9"><b>Los aires actuales no están dañados: consumen demasiado para el objetivo de ahorro y respaldo.</b></p>
-  <p style="margin-top:2.5mm">La propuesta técnica anterior usa dos aires de 24.000 BTU como una carga de <b>5.000 W entre ambos</b>. A 4 horas diarias, esa climatización representa aproximadamente <b>600 kWh/mes</b>. Por eso el sistema solar crece.</p>
-
-  <div class="vs">
-    <div class="card mist">
-      <div class="eyebrow">situación actual modelada</div>
-      <div class="rows">
-        <div class="r"><div class="k">Aires</div><div class="v">2 × 24.000 BTU</div></div>
-        <div class="r"><div class="k">Potencia conjunta usada en el cálculo</div><div class="v">5.000 W</div></div>
-        <div class="r"><div class="k">Uso de referencia</div><div class="v">4 h/día · 120 h/mes</div></div>
-        <div class="r"><div class="k">Consumo mensual equivalente</div><div class="v">≈ 600 kWh/mes</div></div>
-        <div class="r"><div class="k">Respaldo solo para los aires durante 4 h</div><div class="v">20,0 kWh</div></div>
+      <div class="hero-grid">
+        <div class="card recommend">
+          <h2>Recomendación Energía Grata</h2>
+          <div class="mega">11,16 <small>kWp</small></div>
+          <p><b>18 paneles de 620 Wp + 1 inversor híbrido de 10 kW + 3 baterías de litio + 2 aires inverter de 24.000 BTU.</b></p>
+          <p style="margin:14px 0 0;font-weight:800">Incluye soporte/estructura de montaje y medidor multidireccional dentro del valor final.</p>
+          <div class="specrow">
+            <div class="spec"><span>Sistema solar</span><b>$67,96 M</b></div>
+            <div class="spec"><span>Climatización</span><b>$6,75 M</b></div>
+            <div class="spec"><span>Total preliminar</span><b>$78,00 M</b></div>
+          </div>
+        </div>
+        <div class="card summary">
+          <div class="label">Inversión preliminar integrada</div>
+          <div class="price">$78.000.000</div>
+          <div class="save">≈ $7,25 M menos frente a la propuesta anterior</div>
+          <div class="compare-old">
+            <div class="label">Referencia anterior</div>
+            <div style="font-size:26px;font-weight:900">$85.249.388</div>
+            <div style="color:#9AA1A1;margin-top:4px">13,64 kWp físicos · 22 paneles</div>
+          </div>
+        </div>
       </div>
-      <p class="mini" style="margin-top:3mm">Esto deja aproximadamente <b>1.000 kWh/mes</b> de otras cargas dentro del consumo total reportado de 1.600 kWh/mes.</p>
+
+      <div class="metrics">
+        <div class="metric"><div class="k">Cliente</div><div class="v">Jorge Collantes</div></div>
+        <div class="metric"><div class="k">Ubicación</div><div class="v">Santa Marta</div></div>
+        <div class="metric"><div class="k">Consumo reportado</div><div class="v">1.600 kWh/mes</div></div>
+        <div class="metric"><div class="k">Pago reportado</div><div class="v">$1,0 M/mes</div></div>
+      </div>
     </div>
+  </header>
 
-    <div class="pricing">
-      <div class="eyebrow">referencia eficiente recomendada</div>
-      <h2 style="margin-top:0">Midea AI Ecomaster Pro<br>24.000 BTU · Inverter · Clase A</h2>
-      <div style="display:flex;gap:1.6mm;flex-wrap:wrap;margin:2.8mm 0"><span class="tag">220 V</span><span class="tag">SEER 21</span><span class="tag">R32</span><span class="tag">WiFi</span><span class="tag lime">Clase A</span></div>
-      <div class="price-line"><span>Oferta de mercado consultada</span><b>$2.999.900</b></div>
-      <div class="price-line"><span>Referencia conservadora usada por equipo</span><b>$3.115.000</b></div>
-      <div class="price-line"><span>2 equipos</span><b>$6.230.000</b></div>
-      <div class="price-line"><span>Instalación base en Santa Marta<br><small>$220.000 + IVA por equipo</small></span><b>$523.600</b></div>
-      <div class="price-line total"><span><b>Presupuesto climatización</b></span><b>$6.753.600</b></div>
-      <p class="mini" style="margin-top:2.5mm">Usamos una referencia conservadora de compra; si se mantiene la oferta de $2.999.900 por equipo, el valor final puede bajar aproximadamente $230.200.</p>
+  <section id="logica">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>La lógica es simple.</h2>
+        <p>No tiene sentido pagar paneles, baterías y capacidad adicional para compensar equipos que consumen más de lo necesario.</p>
+      </div>
+      <div class="story">
+        <div class="step"><div class="stepnum">1</div><h3>Identificamos la carga alta</h3><p>La propuesta técnica anterior modela los dos aires actuales como una carga conjunta de <b>5.000 W</b>.</p></div>
+        <div class="step"><div class="stepnum">2</div><h3>Cambiamos la climatización</h3><p>Reemplazamos la referencia de consumo por dos aires inverter de <b>24.000 BTU</b> y alta eficiencia.</p></div>
+        <div class="step"><div class="stepnum">3</div><h3>Redimensionamos</h3><p>Volvemos a calcular la generación solar y el respaldo con el nuevo consumo, en vez de “comprar la ineficiencia”.</p></div>
+      </div>
+      <div class="arrow-note">Resultado esperado: una solución más pequeña, más coherente y con una inversión total menor, aun incluyendo los dos aires nuevos.</div>
     </div>
-  </div>
+  </section>
 
-  <div class="section-title"><h2>¿Por qué esta referencia tiene sentido?</h2></div>
-  <div class="benefits">
-    <div class="benefit"><div class="icon-dot"></div><h3>Eficiencia real</h3><p>La ficha del fabricante reporta Clase A y SEER 21.</p></div>
-    <div class="benefit"><div class="icon-dot"></div><h3>Menor consumo</h3><p>La tecnología inverter + IA modula la potencia en vez de operar todo el tiempo al máximo.</p></div>
-    <div class="benefit"><div class="icon-dot"></div><h3>Clima costero</h3><p>El fabricante reporta recubrimiento Hyper Graphene Fin para resistencia a corrosión.</p></div>
-    <div class="benefit"><div class="icon-dot"></div><h3>Medición</h3><p>WiFi y monitoreo ayudan a validar el consumo real después de instalar.</p></div>
-  </div>
+  <section id="aires" style="background:#EEF4F4">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Primero, los aires.</h2>
+        <p>Los equipos actuales sí funcionan. El problema es que su consumo eleva artificialmente el tamaño de todo el sistema energético.</p>
+      </div>
+      <div class="airgrid">
+        <div class="card current">
+          <div class="label">Carga actual modelada</div>
+          <div class="bigload">5,0 kW</div>
+          <p class="muted">Dos aires de 24.000 BTU operando conjuntamente.</p>
+          <div class="row"><span>Uso de referencia</span><b>4 h/día</b></div>
+          <div class="row"><span>Energía diaria</span><b>20 kWh</b></div>
+          <div class="row"><span>Energía mensual</span><b>≈ 600 kWh</b></div>
+          <div class="row"><span>Respaldo 4 horas</span><b>20 kWh</b></div>
+        </div>
+        <div class="card ac-card">
+          <div class="eyebrow" style="background:var(--blue)">Referencia eficiente</div>
+          <div class="product-title">Midea AI Ecomaster Pro Inverter · 24.000 BTU</div>
+          <p>Referencia usada para construir la proyección. La selección final puede sustituirse por un equipo equivalente que conserve la misma capacidad y nivel de eficiencia.</p>
+          <div class="chips"><span class="chip">220 V</span><span class="chip">SEER 21</span><span class="chip">Clase A</span><span class="chip">R32</span><span class="chip">WiFi</span><span class="chip">Inverter + IA</span></div>
+          <div class="pricegrid">
+            <span>Valor conservador por unidad</span><b>$3.115.000</b>
+            <span>2 equipos</span><b>$6.230.000</b>
+            <span>Instalación base estimada</span><b>$523.600</b>
+            <span style="font-weight:900">Total climatización</span><b>$6.753.600</b>
+          </div>
+          <div class="source">Precio y consumo son referencias de mercado y fabricante; deben confirmarse al momento de compra. Fuente técnica: Midea/Roca HVAC. Referencia de precio adicional: Operación Sistémica.</div>
+        </div>
+      </div>
 
-  <div class="statement"><b>La decisión técnica:</b> no dimensionamos el sistema solar para “aguantar” aires ineficientes. Reemplazamos la carga y después hacemos el nuevo cálculo.</div>
+      <div class="benefits">
+        <div class="benefit"><b>Menor demanda</b><p>La tecnología inverter modula la potencia y evita trabajar todo el tiempo al máximo.</p></div>
+        <div class="benefit"><b>Más eficiencia</b><p>La referencia seleccionada reporta SEER 21 y clasificación energética A.</p></div>
+        <div class="benefit"><b>Apta para costa</b><p>La referencia incorpora protección anticorrosiva en el condensador.</p></div>
+        <div class="benefit"><b>Control de consumo</b><p>Permite monitoreo y gestión más precisa de operación.</p></div>
+      </div>
 
-  <div class="footer"><div><b>Energía Grata</b> · ENERGÍA FÁCIL DE ENTENDER</div><div class="page-no">02 / 06</div></div>
-</section>
-
-<!-- PAGE 3 -->
-<section class="page">
-  <div class="header">
-    <div class="brand"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="43" fill="none" stroke="#000" stroke-width="5"/><ellipse cx="50" cy="50" rx="23" ry="43" fill="none" stroke="#000" stroke-width="4"/><line x1="8" y1="50" x2="92" y2="50" stroke="#000" stroke-width="9"/><circle cx="50" cy="50" r="6" fill="#000"/></svg><div><div class="brand-name">EnergiaGrata</div><div class="brand-tag">menos consumo · mejor sistema</div></div></div>
-    <div class="meta">Reconteo de consumo<br><strong>Misma rutina: 4 h/día de aire</strong></div>
-  </div>
-
-  <h1>Recalculamos con la misma regla de uso</h1>
-  <p class="lead">Para comparar de forma justa, llevamos los datos de eficiencia de los aires nuevos a las <b>mismas 4 horas diarias</b> usadas en la propuesta técnica anterior.</p>
-
-  <div class="calc">
-    <table>
-      <thead><tr><th>Escenario</th><th>Consumo 2 aires</th><th>Nuevo consumo total</th><th>Sistema sugerido</th><th style="text-align:right">Solar estimado</th></tr></thead>
-      <tbody>
-        <tr class="optimized"><td><b>Optimizado + IA</b><br><span class="mini">≈0,8 kWh/h por equipo</span></td><td>192 kWh/mes</td><td>1.192 kWh/mes</td><td>10,54 kWp · 17 paneles</td><td class="money">$64.180.611</td></tr>
-        <tr class="recommended"><td><b>Balanceado</b> <span class="badge">RECOMENDADO</span><br><span class="mini">AHRI normalizado a 120 h/mes</span></td><td>274 kWh/mes</td><td>1.274 kWh/mes</td><td>11,16 kWp · 18 paneles</td><td class="money">$67.955.941</td></tr>
-        <tr class="conservative"><td><b>Conservador RETIQ</b><br><span class="mini">218,5 kWh / 132 h, llevado a 120 h</span></td><td>397 kWh/mes</td><td>1.397 kWh/mes</td><td>11,78 kWp · 19 paneles</td><td class="money">$71.731.271</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="formula"><b>Cómo sale el cálculo:</b> consumo actual 1.600 - aires actuales 600 = <b>1.000 kWh/mes de otras cargas</b>. Luego sumamos el nuevo consumo de climatización. Para paneles usamos la premisa de 120 kWh/mes de generación por kWp y redondeamos hacia arriba al panel completo de 620 Wp. Para precio usamos $6.089.242 por kWp híbrido.</div>
-
-  <div class="section-title"><h2>Qué cambia frente al diseño anterior</h2></div>
-  <div class="before-after">
-    <div><h3>Antes</h3><div class="mid-number">13,64 kWp</div><p>22 paneles de 620 Wp</p><div class="panel-dots">
-      <i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i>
-    </div></div>
-    <div class="arrow">→</div>
-    <div><h3>Ahora · balanceado</h3><div class="mid-number">11,16 kWp</div><p>18 paneles de 620 Wp</p><div class="panel-dots">
-      <i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel"></i><i class="panel empty"></i><i class="panel empty"></i><i class="panel empty"></i><i class="panel empty"></i>
-    </div></div>
-  </div>
-
-  <div class="grid g3" style="margin-top:4mm">
-    <div class="card lime"><div class="eyebrow">paneles</div><div class="mid-number">-4</div><p>Menos paneles en la alternativa balanceada.</p></div>
-    <div class="card blue"><div class="eyebrow">potencia</div><div class="mid-number">-2,48 kWp</div><p>De 13,64 a 11,16 kWp físicos.</p></div>
-    <div class="card black"><div class="eyebrow">principio</div><div class="mid-number">1º eficiencia</div><p>Después dimensionamos la generación.</p></div>
-  </div>
-
-  <div class="statement"><b>Importante:</b> no estamos prometiendo que el aire siempre consumirá exactamente lo mismo. Por eso mostramos tres escenarios y recomendamos el intermedio como base comercial.</div>
-
-  <div class="footer"><div><b>Energía Grata</b> · CLARIDAD ANTES QUE TECNICISMOS</div><div class="page-no">03 / 06</div></div>
-</section>
-
-<!-- PAGE 4 -->
-<section class="page" id="opciones">
-  <div class="header">
-    <div class="brand"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="43" fill="none" stroke="#000" stroke-width="5"/><ellipse cx="50" cy="50" rx="23" ry="43" fill="none" stroke="#000" stroke-width="4"/><line x1="8" y1="50" x2="92" y2="50" stroke="#000" stroke-width="9"/><circle cx="50" cy="50" r="6" fill="#000"/></svg><div><div class="brand-name">EnergiaGrata</div><div class="brand-tag">compara antes de decidir</div></div></div>
-    <div class="meta">Tres escenarios integrados<br><strong>Todos incluyen 2 aires nuevos</strong></div>
-  </div>
-
-  <h1>Las 3 opciones, ya con climatización</h1>
-  <p class="lead">La comparación correcta no es “cuántos paneles compro”, sino <b>cuánto invierto en total y cuánta holgura energética quiero</b>.</p>
-
-  <div class="options">
-    <div class="option opt">
-      <div class="eyebrow">opción 1</div><h2 style="margin:0">Optimizada + IA</h2><div class="cap">10,54 kWp · 17 paneles</div>
-      <div class="metric"><span>Sistema solar híbrido</span><b>$64.180.611</b></div>
-      <div class="metric"><span>2 aires + instalación base</span><b>$6.753.600</b></div>
-      <div class="metric"><span>Inversión integrada</span><b>$70.934.211</b></div>
-      <div class="metric"><span>Diferencia vs referencia solar física anterior ($83,06 M)</span><b>-$12.123.050</b></div>
-      <div class="fit"><b>Cuándo elegirla:</b> si el uso de los aires se controla bien entre 24-25 °C y se quiere minimizar inversión.</div>
+      <div class="formula">
+        <div class="fbox"><span>Consumo total reportado</span><b>1.600</b><small>kWh/mes</small></div>
+        <div class="fop">−</div>
+        <div class="fbox"><span>Aires actuales</span><b>600</b><small>kWh/mes</small></div>
+        <div class="fop">+</div>
+        <div class="fbox"><span>Nuevos aires</span><b>192–397</b><small>kWh/mes</small></div>
+      </div>
     </div>
+  </section>
 
-    <div class="option rec">
-      <div><span class="badge">RECOMENDADA</span></div><div class="eyebrow" style="margin-top:2mm">opción 2</div><h2 style="margin:0">Balanceada</h2><div class="cap">11,16 kWp · 18 paneles</div>
-      <div class="metric"><span>Sistema solar híbrido</span><b>$67.955.941</b></div>
-      <div class="metric"><span>2 aires + instalación base</span><b>$6.753.600</b></div>
-      <div class="metric"><span>Inversión integrada</span><b>$74.709.541</b></div>
-      <div class="metric"><span>Diferencia vs referencia solar física anterior ($83,06 M)</span><b>-$8.347.720</b></div>
-      <div class="fit"><b>Por qué la recomendamos:</b> no depende del mejor caso de IA, pero tampoco sobredimensiona como el escenario conservador.</div>
+  <section id="opciones">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Tres formas de resolverlo.</h2>
+        <p>Las tres opciones incluyen el recálculo solar y el presupuesto estimado de los dos aires. Cambia el nivel de holgura que queremos dejar.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab" data-tab="opt">1 · Optimizada</button>
+        <button class="tab active" data-tab="bal">2 · Balanceada · Recomendada</button>
+        <button class="tab" data-tab="con">3 · Conservadora</button>
+      </div>
+
+      <div id="opt" class="scenario">
+        <div class="sc-card">
+          <div class="sc-main">
+            <div class="sc-title">Optimizada + IA</div>
+            <div class="sc-kwp">10,54 <small style="font-size:.35em">kWp</small></div>
+            <div class="list">
+              <div class="row"><span>Paneles</span><b>17 × 620 Wp</b></div>
+              <div class="row"><span>Consumo de 2 aires</span><b>192 kWh/mes</b></div>
+              <div class="row"><span>Consumo total estimado</span><b>1.192 kWh/mes</b></div>
+              <div class="row"><span>Inversión solar</span><b>$64.177.012</b></div>
+              <div class="row"><span>Aires + instalación</span><b>$6.753.600</b></div>
+              <div class="row"><span>Soporte + medidor multidireccional</span><b>Incluidos</b></div>
+              <div class="row"><span>Total preliminar</span><b>$74.221.071</b></div>
+            </div>
+          </div>
+          <div class="why"><h3>¿Cuándo escogerla?</h3><p>Cuando se pueda operar los aires de forma disciplinada, con temperatura entre 24 °C y 25 °C y aprovechando la modulación inteligente.</p><div class="bar"><i style="width:83%"></i></div><b>Ahorro vs. referencia anterior: $11.028.317</b></div>
+        </div>
+      </div>
+
+      <div id="bal" class="scenario active">
+        <div class="sc-card">
+          <div class="sc-main reco">
+            <div class="eyebrow">Recomendada</div>
+            <div class="sc-title" style="margin-top:14px">Balanceada</div>
+            <div class="sc-kwp">11,16 <small style="font-size:.35em">kWp</small></div>
+            <div class="list">
+              <div class="row"><span>Paneles</span><b>18 × 620 Wp</b></div>
+              <div class="row"><span>Consumo de 2 aires</span><b>274 kWh/mes</b></div>
+              <div class="row"><span>Consumo total estimado</span><b>1.274 kWh/mes</b></div>
+              <div class="row"><span>Inversión solar</span><b>$67.955.941</b></div>
+              <div class="row"><span>Aires + instalación</span><b>$6.753.600</b></div>
+              <div class="row"><span>Soporte + medidor multidireccional</span><b>Incluidos</b></div>
+              <div class="row"><span>Total preliminar</span><b>$78.000.000</b></div>
+            </div>
+          </div>
+          <div class="why"><h3>¿Por qué recomendamos esta?</h3><p>No depende del escenario más optimista y deja una holgura más cómoda sin regresar al sobredimensionamiento de 22 paneles.</p><div class="bar"><i style="width:88%"></i></div><b>Ahorro vs. referencia anterior: $7.249.388</b></div>
+        </div>
+      </div>
+
+      <div id="con" class="scenario">
+        <div class="sc-card">
+          <div class="sc-main">
+            <div class="sc-title">Conservadora</div>
+            <div class="sc-kwp">11,78 <small style="font-size:.35em">kWp</small></div>
+            <div class="list">
+              <div class="row"><span>Paneles</span><b>19 × 620 Wp</b></div>
+              <div class="row"><span>Consumo de 2 aires</span><b>397 kWh/mes</b></div>
+              <div class="row"><span>Consumo total estimado</span><b>1.397 kWh/mes</b></div>
+              <div class="row"><span>Inversión solar</span><b>$71.734.870</b></div>
+              <div class="row"><span>Aires + instalación</span><b>$6.753.600</b></div>
+              <div class="row"><span>Soporte + medidor multidireccional</span><b>Incluidos</b></div>
+              <div class="row"><span>Total preliminar</span><b>$81.778.929</b></div>
+            </div>
+          </div>
+          <div class="why"><h3>¿Cuándo escogerla?</h3><p>Cuando se prefiera una reserva mayor frente a variaciones de uso, temperatura o comportamiento real de los equipos.</p><div class="bar"><i style="width:94%"></i></div><b>Ahorro vs. referencia anterior: $3.470.459</b></div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="option cons">
-      <div class="eyebrow">opción 3</div><h2 style="margin:0">Conservadora</h2><div class="cap">11,78 kWp · 19 paneles</div>
-      <div class="metric"><span>Sistema solar híbrido</span><b>$71.731.271</b></div>
-      <div class="metric"><span>2 aires + instalación base</span><b>$6.753.600</b></div>
-      <div class="metric"><span>Inversión integrada</span><b>$78.484.871</b></div>
-      <div class="metric"><span>Diferencia vs referencia solar física anterior ($83,06 M)</span><b>-$4.572.390</b></div>
-      <div class="fit"><b>Cuándo elegirla:</b> si se prefiere mayor margen frente a hábitos de uso, temperatura, radiación o crecimiento de carga.</div>
+  <section id="sistema" style="background:#EEF4F4">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Así funciona la solución.</h2>
+        <p>Durante el día, el sistema prioriza la energía solar. El banco de baterías conserva respaldo para cortes y cargas definidas como prioritarias.</p>
+      </div>
+      <div class="system">
+        <div class="node"><div class="icon">▦</div><b>18 paneles</b><span>11,16 kWp físicos</span></div>
+        <div class="flow">→</div>
+        <div class="node"><div class="icon">▣</div><b>Inversor híbrido</b><span>10 kW</span></div>
+        <div class="flow">→</div>
+        <div class="node"><div class="icon">▥▥▥</div><b>Banco de baterías</b><span>3 × 200Ah · 51.2V</span></div>
+        <div class="flow">→</div>
+        <div class="node"><div class="icon">❄</div><b>Cargas priorizadas</b><span>Aires · nevera · iluminación · otras</span></div>
+      </div>
+
+      <div class="backup">
+        <div class="card old"><span>Respaldo de referencia con aires actuales</span><strong>26,6 kWh</strong><p>Incluye 2 aires, nevera, iluminación y otras cargas del análisis técnico.</p></div>
+        <div class="card new"><span>Respaldo estimado con aires inverter</span><strong>≈ 15,7 kWh</strong><p>La eficiencia de climatización reduce de forma importante la energía exigida durante un apagón.</p></div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="grid g2" style="margin-top:4mm">
-    <div class="card black"><div class="eyebrow">dos formas de comparar</div><h3>Contra la potencia física anterior</h3><p>13,64 kWp × $6.089.242 = <b style="color:var(--lime)">$83.057.261</b>. Es la referencia que usamos para mostrar el efecto real de redimensionar.</p></div>
-    <div class="card lime"><div class="eyebrow">cotización emitida</div><h3>La propuesta preliminar anterior fue $85.249.388</h3><p>Con la opción balanceada completa, la diferencia frente a ese valor sería de aproximadamente <b>$10.539.847</b>, aun incorporando los dos aires nuevos.</p></div>
-  </div>
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Qué incluye y qué debemos confirmar.</h2>
+        <p>La oferta definitiva se cierra después de validar instalación, horas reales de uso y condiciones eléctricas del sitio.</p>
+      </div>
+      <div class="terms">
+        <div class="card">
+          <h3>Incluye en la solución solar</h3>
+          <div class="checklist">
+            <div class="check"><span class="dot">✓</span><span>Paneles, inversor y banco de baterías.</span></div>
+            <div class="check"><span class="dot">✓</span><span>Soporte/estructura de montaje para los paneles, tableros AC/DC, protecciones y cableado.</span></div>
+            <div class="check"><span class="dot">✓</span><span>Instalación eléctrica y mecánica.</span></div>
+            <div class="check"><span class="dot">✓</span><span>Transporte de materiales y equipos.</span></div>
+            <div class="check"><span class="dot">✓</span><span>Medidor multidireccional, sistema de monitoreo, certificación RETIE y 1 mantenimiento preventivo en el primer año.</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Por confirmar / no incluido</h3>
+          <div class="checklist">
+            <div class="check"><span class="dot no">!</span><span>Adecuación y unificación de tableros eléctricos existentes.</span></div>
+            <div class="check"><span class="dot no">!</span><span>Obra civil o refuerzos adicionales, si fueran necesarios.</span></div>
+            <div class="check"><span class="dot no">!</span><span>Recorridos especiales de tubería o accesorios adicionales para los aires.</span></div>
+            <div class="check"><span class="dot no">!</span><span>Precio final de los aires, sujeto a disponibilidad al momento de compra.</span></div>
+            <div class="check"><span class="dot no">!</span><span>Validación final del consumo real y visita técnica.</span></div>
+          </div>
+        </div>
+      </div>
 
-  <div class="statement"><b>Lectura para Jorge:</b> con la opción balanceada no solo reduce potencia solar; además reemplaza dos aires de alto consumo y el paquete completo sigue quedando por debajo de la propuesta anterior.</div>
+      <div class="metrics" style="margin-top:18px">
+        <div class="metric"><div class="k">Forma de pago</div><div class="v">50 / 35 / 15</div></div>
+        <div class="metric"><div class="k">Garantía instalación</div><div class="v">2 años</div></div>
+        <div class="metric"><div class="k">Garantía paneles</div><div class="v">12 + 25</div><small>años equipo + generación</small></div>
+        <div class="metric"><div class="k">Vigencia</div><div class="v">30 días</div></div>
+      </div>
 
-  <div class="footer"><div><b>Energía Grata</b> · UNA DECISIÓN CLARA EMPIEZA POR ENTENDER EL TOTAL</div><div class="page-no">04 / 06</div></div>
-</section>
+      <div class="source">
+        <b>Claridad comercial:</b> el valor recomendado de <b>$78.000.000</b> ya contempla la solución híbrida, los dos aires inverter, el soporte/estructura de montaje y el medidor multidireccional. No se presentan como adicionales al cierre, salvo cambios derivados de la visita técnica.
+      </div>
+      <div class="source">
+        <b>Nota de cálculo:</b> la proyección usa como referencia comercial híbrida $6.089.242 por kWp y paneles de 620 Wp, redondeando al siguiente panel completo. Los valores son preliminares y se confirman en la oferta final.
+      </div>
+    </div>
+  </section>
 
-<!-- PAGE 5 -->
-<section class="page" id="recomendacion">
-  <div class="header">
-    <div class="brand"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="43" fill="none" stroke="#000" stroke-width="5"/><ellipse cx="50" cy="50" rx="23" ry="43" fill="none" stroke="#000" stroke-width="4"/><line x1="8" y1="50" x2="92" y2="50" stroke="#000" stroke-width="9"/><circle cx="50" cy="50" r="6" fill="#000"/></svg><div><div class="brand-name">EnergiaGrata</div><div class="brand-tag">configuración recomendada</div></div></div>
-    <div class="meta">Híbrido: ahorro + respaldo<br><strong>Opción 2 · Balanceada</strong></div>
-  </div>
+  <section id="cierre" style="padding-top:20px">
+    <div class="wrap">
+      <div class="cta">
+        <div>
+          <div class="eyebrow" style="background:var(--blue);color:#111">Siguiente paso</div>
+          <h2 style="margin-top:18px">Confirmemos la solución correcta en sitio.</h2>
+          <p style="color:#CFD4D4;max-width:650px">La visita técnica nos permite confirmar techo, tableros, recorridos, uso real de los aires y condiciones de respaldo antes de emitir el valor contractual.</p>
+        </div>
+        <div class="buttons">
+          <a class="btn" href="https://wa.me/573205710096" target="_blank" rel="noopener">Hablar por WhatsApp</a>
+          <a class="btn alt" href="mailto:info@energiagrata.com">Escribir por correo</a>
+          <a class="btn alt" href="#" onclick="window.print();return false;">Imprimir / guardar PDF</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <h1>Lo que recomendamos instalar</h1>
-  <div class="statement" style="background:rgba(244,255,128,.48);border-color:#bfd222;margin-top:0"><b style="font-size:6mm">11,16 kWp + 2 aires inverter Clase A</b><br>Una solución que primero reduce la demanda y luego instala la generación necesaria.</div>
+  <footer class="foot">
+    <div class="wrap footin">
+      <div><b>Energía Grata</b> · Sostenible · Limpia · Humana</div>
+      <div>Tierra Grata Social Enterprise SAS BIC · NIT 901.716.485-0</div>
+    </div>
+  </footer>
 
-  <div class="system-grid">
-    <div class="system-card"><div class="mid-number">18</div><b>paneles de 620 Wp</b><span>11,16 kWp físicos</span></div>
-    <div class="system-card"><div class="mid-number">10</div><b>inversor híbrido</b><span>1 × 10 kW</span></div>
-    <div class="system-card"><div class="mid-number">3</div><b>baterías de litio</b><span>200 Ah · 51,2 V</span></div>
-    <div class="system-card"><div class="mid-number">2</div><b>aires inverter</b><span>24.000 BTU · Clase A</span></div>
-  </div>
-
-  <div class="flow">
-    <div class="flow-block"><b>Paneles solares</b><svg viewBox="0 0 100 70"><rect x="5" y="10" width="90" height="45" rx="2" fill="#a8d5e9" stroke="#000" stroke-width="3"/><path d="M27 10v45M50 10v45M73 10v45M5 32h90" stroke="#000" stroke-width="2"/><path d="M40 56l-7 12M60 56l7 12M25 68h50" stroke="#000" stroke-width="3"/></svg></div>
-    <div class="arr">→</div>
-    <div class="flow-block"><b>Inversor híbrido</b><svg viewBox="0 0 100 70"><rect x="18" y="5" width="64" height="60" rx="8" fill="#fff" stroke="#000" stroke-width="3"/><path d="M30 40c10-18 30 18 40 0" fill="none" stroke="#000" stroke-width="3"/></svg></div>
-    <div class="arr">→</div>
-    <div class="flow-block"><b>Banco de baterías</b><svg viewBox="0 0 100 70"><g fill="#fff" stroke="#000" stroke-width="3"><rect x="6" y="15" width="25" height="48" rx="3"/><rect x="38" y="15" width="25" height="48" rx="3"/><rect x="70" y="15" width="25" height="48" rx="3"/></g><g fill="#f4ff80"><rect x="10" y="39" width="17" height="20"/><rect x="42" y="34" width="17" height="25"/><rect x="74" y="31" width="17" height="28"/></g></svg></div>
-    <div class="arr">→</div>
-    <div class="flow-block"><b>Cargas priorizadas</b><svg viewBox="0 0 100 70"><rect x="8" y="7" width="84" height="56" rx="8" fill="#fff" stroke="#000" stroke-width="3"/><text x="50" y="25" text-anchor="middle" font-size="12" font-family="Arial">2 aires</text><text x="50" y="40" text-anchor="middle" font-size="12" font-family="Arial">nevera · luces</text><text x="50" y="55" text-anchor="middle" font-size="12" font-family="Arial">otras cargas</text></svg></div>
-  </div>
-
-  <div class="section-title"><h2>Por qué mantener 3 baterías</h2></div>
-  <div class="backup">
-    <div class="title">Respaldo nocturno</div>
-    <div><span>Con aires actuales</span><br><b>26,6 kWh</b><br><span>20 kWh de aires + 6,6 kWh de otras cargas</span></div>
-    <div><span>Con aires nuevos · balanceado</span><br><b>15,7 kWh</b><br><span>≈9,14 kWh de aires + 6,6 kWh de otras cargas</span></div>
-  </div>
-
-  <div class="grid g3" style="margin-top:3mm">
-    <div class="card mist"><div class="eyebrow">1 batería</div><div class="mid-number">10,24 kWh</div><p>Capacidad nominal. No alcanza para el respaldo objetivo balanceado.</p></div>
-    <div class="card blue"><div class="eyebrow">2 baterías</div><div class="mid-number">20,48 kWh</div><p>Capacidad nominal. Queda ajustada una vez se consideran pérdidas y límites de descarga.</p></div>
-    <div class="card lime"><div class="eyebrow">3 baterías · recomendadas</div><div class="mid-number">30,72 kWh</div><p>Capacidad nominal. Da una holgura más razonable para 2 aires + cargas esenciales.</p></div>
-  </div>
-
-  <p class="source-note">La capacidad nominal se obtiene de 200 Ah × 51,2 V por batería. La energía realmente utilizable depende del BMS, profundidad de descarga configurada, temperatura, eficiencia del inversor y estado de carga.</p>
-
-  <div class="inout">
-    <div class="list-card in"><h3>Incluye en el alcance solar</h3><ul><li>Paneles, inversor y banco de baterías.</li><li>Estructura de aluminio para cubierta.</li><li>Tableros de protección AC/DC, breakers y fusibles.</li><li>Cableado, conectores, tubería y accesorios.</li><li>Instalación eléctrica y mecánica.</li><li>Transporte, RETIE, smart meter/DTU y monitoreo.</li><li>Trámites ante UPME cuando apliquen.</li><li>1 mantenimiento preventivo durante el primer año.</li></ul></div>
-    <div class="list-card out"><h3>No incluye / por confirmar</h3><ul><li>Adecuación y unificación de tableros eléctricos existentes.</li><li>Obra civil, refuerzos o intervenciones no identificadas.</li><li>Medidor bidireccional del comercializador.</li><li>Recorridos especiales y materiales extra para instalación de aires.</li><li>Condiciones de sombra, cubierta y espacio útil hasta visita técnica.</li></ul></div>
-  </div>
-
-  <div class="footer"><div><b>Energía Grata</b> · EL FUTURO DE LA ENERGÍA LO LLEVAMOS HASTA TU CASA</div><div class="page-no">05 / 06</div></div>
-</section>
-
-<!-- PAGE 6 -->
-<section class="page">
-  <div class="header">
-    <div class="brand"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="43" fill="none" stroke="#000" stroke-width="5"/><ellipse cx="50" cy="50" rx="23" ry="43" fill="none" stroke="#000" stroke-width="4"/><line x1="8" y1="50" x2="92" y2="50" stroke="#000" stroke-width="9"/><circle cx="50" cy="50" r="6" fill="#000"/></svg><div><div class="brand-name">EnergiaGrata</div><div class="brand-tag">cierre de propuesta</div></div></div>
-    <div class="meta">Condiciones y siguiente paso<br><strong>Oferta preliminar sujeta a visita</strong></div>
-  </div>
-
-  <h1>Qué falta confirmar antes de firmar</h1>
-  <p class="lead">La propuesta ya tiene una lógica financiera y técnica clara. El último paso es validar en sitio que el predio permita ejecutar exactamente lo diseñado.</p>
-
-  <div class="grid g2" style="margin-top:5mm">
-    <div class="card lime"><div class="eyebrow">recomendación comercial</div><h2 style="margin-top:0">$74.709.541</h2><p><b>Paquete preliminar recomendado:</b> sistema híbrido de 11,16 kWp + 3 baterías + 2 aires inverter Clase A + instalación base de climatización.</p><div style="margin-top:3mm"><span class="tag dark">Sujeto a visita técnica</span></div></div>
-    <div class="card black"><div class="eyebrow">qué no estamos vendiendo</div><h3>Una cifra “cerrada” sin revisar el sitio.</h3><p>Sombras, estado de cubierta, tableros, distancias, recorridos de tubería, protecciones y hábitos reales de uso pueden mover el valor final.</p></div>
-  </div>
-
-  <div class="section-title"><h2>Condiciones comerciales</h2></div>
-  <div class="terms">
-    <div class="term"><span>Forma de pago</span><b>50% / 35% / 15%</b></div>
-    <div class="term"><span>Paneles</span><b>12 años equipo · 25 años generación</b></div>
-    <div class="term"><span>Instalación</span><b>2 años</b></div>
-    <div class="term"><span>Vigencia</span><b>30 días</b></div>
-  </div>
-
-  <div class="section-title"><h2>Cronograma estimado</h2></div>
-  <div class="timeline">
-    <div class="phase"><b>1. Alistamiento</b><span>Contrato, anticipo y pedido · semanas 1-2</span></div>
-    <div class="phase"><b>2. Logística</b><span>Equipos y preparación · semanas 2-4</span></div>
-    <div class="phase"><b>3. Montaje</b><span>Solar + baterías + aires · semanas 4-5</span></div>
-    <div class="phase"><b>4. Cierre</b><span>Pruebas, capacitación y entrega · semana 6</span></div>
-  </div>
-
-  <div class="section-title"><h2>Las 3 decisiones que debemos cerrar con Jorge</h2></div>
-  <div class="steps">
-    <div class="step"><div class="n">1</div><h3>Confirmar uso real</h3><p>Horas diarias de aire, temperatura habitual, simultaneidad y otras cargas que no estén en el diagnóstico.</p></div>
-    <div class="step"><div class="n">2</div><h3>Confirmar respaldo</h3><p>Definir si los dos aires deben operar durante todo el apagón o si uno puede ser secundario para ampliar autonomía.</p></div>
-    <div class="step"><div class="n">3</div><h3>Hacer visita técnica</h3><p>Techo, sombras, tableros, distancias, acometidas, recorridos de tubería y protecciones.</p></div>
-  </div>
-
-  <p class="source-note" style="margin-top:4mm"><b>Fuentes:</b> documentos técnicos de Jorge Collantes; referencia Midea AI Ecomaster Pro MSEZ1D-24CRFN8-QC5-CO; precio de equipo consultado el 01/09/2026; instalación REFRISER Santa Marta; premisa solar 120 kWh/mes por kWp; tarifa híbrida $6.089.242/kWp.</p>
-
-  <div class="statement" style="margin-top:3mm"><b>Próximo paso:</b> visita técnica para validar uso real, respaldo, techo, tableros y recorridos. Con eso emitimos la oferta final contractual.</div>
-
-  <div class="footer"><div><b>Energía Grata</b> · info@energiagrata.com · +57 320 5710096 · energiagrata.com</div><div class="page-no">06 / 06</div></div>
-</section>
-
-</main>
+<script>
+  const tabs=[...document.querySelectorAll('.tab')];
+  const scenarios=[...document.querySelectorAll('.scenario')];
+  tabs.forEach(btn=>btn.addEventListener('click',()=>{
+    tabs.forEach(x=>x.classList.remove('active'));
+    scenarios.forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  }));
+</script>
 </body>
 </html>
