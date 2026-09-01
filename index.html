@@ -140,6 +140,18 @@
     .backup .old{background:#F1F1F1}
     .backup .new{background:var(--lime)}
     .backup strong{font-size:52px;display:block;letter-spacing:-.05em}
+    .finance-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:stretch}
+    .finance-main{background:linear-gradient(135deg,var(--lime),#FBFFD8);border:1px solid #D8E55B;border-radius:30px;padding:32px}
+    .finance-main h3{font-size:30px;margin:0 0 18px;letter-spacing:-.04em}
+    .finance-line{display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid rgba(0,0,0,.13)}
+    .finance-line span{color:#343A3C}
+    .finance-line b{font-size:22px;white-space:nowrap}
+    .finance-total{margin-top:18px;padding-top:18px;display:flex;justify-content:space-between;align-items:end;gap:18px}
+    .finance-total strong{font-size:48px;letter-spacing:-.05em;line-height:1}
+    .finance-side{background:#111;color:#fff;border-radius:30px;padding:32px}
+    .finance-side .delta{font-size:48px;font-weight:950;letter-spacing:-.05em;color:var(--lime-2);line-height:1}
+    .finance-side .mini{color:#BCC3C3;font-size:14px}
+    .credit-note{margin-top:16px;padding:18px;border-radius:20px;background:#fff;border:1px solid var(--line);font-size:14px;color:#5A6365}
     .terms{display:grid;grid-template-columns:1fr 1fr;gap:18px}
     .checklist{display:grid;gap:12px}
     .check{display:flex;gap:12px;align-items:flex-start;padding-bottom:12px;border-bottom:1px dashed #D7DFDF}
@@ -159,7 +171,7 @@
     .source a{color:var(--blue-strong)}
     @media(max-width:900px){
       .links a:not(.navcta){display:none}
-      .hero-grid,.airgrid,.sc-card,.terms{grid-template-columns:1fr}
+      .hero-grid,.airgrid,.sc-card,.terms,.finance-wrap{grid-template-columns:1fr}
       .metrics{grid-template-columns:1fr 1fr}
       .story{grid-template-columns:1fr}
       .benefits{grid-template-columns:1fr 1fr}
@@ -197,7 +209,7 @@
     <div class="wrap navin">
       <div class="brand"><div class="mark"><i></i></div><span>Energía Grata</span></div>
       <div class="links">
-        <a href="#logica">La lógica</a><a href="#aires">Aires</a><a href="#opciones">Opciones</a><a href="#sistema">Sistema</a>
+        <a href="#logica">La lógica</a><a href="#aires">Aires</a><a href="#opciones">Opciones</a><a href="#financiacion">Financiación</a><a href="#sistema">Sistema</a>
         <a class="navcta" href="#cierre">Hablemos</a>
       </div>
     </div>
@@ -218,17 +230,25 @@
           <div class="specrow">
             <div class="spec"><span>Sistema solar</span><b>$67,96 M</b></div>
             <div class="spec"><span>Climatización</span><b>$6,75 M</b></div>
-            <div class="spec"><span>Total preliminar</span><b>$78,00 M</b></div>
+            <div class="spec"><span>Inversión base</span><b>$78,00 M</b></div>
           </div>
         </div>
         <div class="card summary">
-          <div class="label">Inversión preliminar integrada</div>
-          <div class="price">$78.000.000</div>
-          <div class="save">≈ $7,25 M menos frente a la propuesta anterior</div>
+          <div class="label">Total final con crédito</div>
+          <div class="price">$83.860.000</div>
+          <div class="save">Incluye visita técnica + comisión de crédito del 7%</div>
           <div class="compare-old">
-            <div class="label">Referencia anterior</div>
-            <div style="font-size:26px;font-weight:900">$85.249.388</div>
-            <div style="color:#9AA1A1;margin-top:4px">13,64 kWp físicos · 22 paneles</div>
+            <div class="label">Desglose financiero</div>
+            <div style="display:grid;gap:7px;margin-top:10px">
+              <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#AEB5B5">Inversión base</span><b>$78.000.000</b></div>
+              <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#AEB5B5">Visita técnica</span><b>$400.000</b></div>
+              <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#AEB5B5">Comisión crédito 7%</span><b>$5.460.000</b></div>
+            </div>
+            <div style="border-top:1px solid #333;margin-top:14px;padding-top:14px">
+              <div class="label">Referencia anterior</div>
+              <div style="font-size:24px;font-weight:900">$85.249.388</div>
+              <div style="color:#9AA1A1;margin-top:4px">Aun con visita y comisión, la solución queda $1.389.388 por debajo.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -330,10 +350,13 @@
               <div class="row"><span>Inversión solar</span><b>$64.177.012</b></div>
               <div class="row"><span>Aires + instalación</span><b>$6.753.600</b></div>
               <div class="row"><span>Soporte + medidor multidireccional</span><b>Incluidos</b></div>
-              <div class="row"><span>Total preliminar</span><b>$74.221.071</b></div>
+              <div class="row"><span>Inversión base</span><b>$74.221.071</b></div>
+              <div class="row"><span>Visita técnica</span><b>$400.000</b></div>
+              <div class="row"><span>Comisión crédito 7%</span><b>$5.195.475</b></div>
+              <div class="row"><span>Total con crédito</span><b>$79.816.546</b></div>
             </div>
           </div>
-          <div class="why"><h3>¿Cuándo escogerla?</h3><p>Cuando se pueda operar los aires de forma disciplinada, con temperatura entre 24 °C y 25 °C y aprovechando la modulación inteligente.</p><div class="bar"><i style="width:83%"></i></div><b>Ahorro vs. referencia anterior: $11.028.317</b></div>
+          <div class="why"><h3>¿Cuándo escogerla?</h3><p>Cuando se pueda operar los aires de forma disciplinada, con temperatura entre 24 °C y 25 °C y aprovechando la modulación inteligente.</p><div class="bar"><i style="width:83%"></i></div><b>Diferencia final vs. referencia anterior: $5.432.842 menos</b></div>
         </div>
       </div>
 
@@ -350,10 +373,13 @@
               <div class="row"><span>Inversión solar</span><b>$67.955.941</b></div>
               <div class="row"><span>Aires + instalación</span><b>$6.753.600</b></div>
               <div class="row"><span>Soporte + medidor multidireccional</span><b>Incluidos</b></div>
-              <div class="row"><span>Total preliminar</span><b>$78.000.000</b></div>
+              <div class="row"><span>Inversión base</span><b>$78.000.000</b></div>
+              <div class="row"><span>Visita técnica</span><b>$400.000</b></div>
+              <div class="row"><span>Comisión crédito 7%</span><b>$5.460.000</b></div>
+              <div class="row"><span>Total con crédito</span><b>$83.860.000</b></div>
             </div>
           </div>
-          <div class="why"><h3>¿Por qué recomendamos esta?</h3><p>No depende del escenario más optimista y deja una holgura más cómoda sin regresar al sobredimensionamiento de 22 paneles.</p><div class="bar"><i style="width:88%"></i></div><b>Ahorro vs. referencia anterior: $7.249.388</b></div>
+          <div class="why"><h3>¿Por qué recomendamos esta?</h3><p>No depende del escenario más optimista y deja una holgura más cómoda sin regresar al sobredimensionamiento de 22 paneles.</p><div class="bar"><i style="width:88%"></i></div><b>Diferencia final vs. referencia anterior: $1.389.388 menos</b></div>
         </div>
       </div>
 
@@ -369,11 +395,49 @@
               <div class="row"><span>Inversión solar</span><b>$71.734.870</b></div>
               <div class="row"><span>Aires + instalación</span><b>$6.753.600</b></div>
               <div class="row"><span>Soporte + medidor multidireccional</span><b>Incluidos</b></div>
-              <div class="row"><span>Total preliminar</span><b>$81.778.929</b></div>
+              <div class="row"><span>Inversión base</span><b>$81.778.929</b></div>
+              <div class="row"><span>Visita técnica</span><b>$400.000</b></div>
+              <div class="row"><span>Comisión crédito 7%</span><b>$5.724.525</b></div>
+              <div class="row"><span>Total con crédito</span><b>$87.903.454</b></div>
             </div>
           </div>
-          <div class="why"><h3>¿Cuándo escogerla?</h3><p>Cuando se prefiera una reserva mayor frente a variaciones de uso, temperatura o comportamiento real de los equipos.</p><div class="bar"><i style="width:94%"></i></div><b>Ahorro vs. referencia anterior: $3.470.459</b></div>
+          <div class="why"><h3>¿Cuándo escogerla?</h3><p>Cuando se prefiera una reserva mayor frente a variaciones de uso, temperatura o comportamiento real de los equipos.</p><div class="bar"><i style="width:94%"></i></div><b>Diferencia final vs. referencia anterior: $2.654.066 más</b></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="financiacion" style="background:#F7F9F7">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Así queda financieramente.</h2>
+        <p>Separamos la inversión técnica de los costos asociados al cierre y al crédito para que el cliente vea con claridad de dónde sale el valor final.</p>
+      </div>
+
+      <div class="finance-wrap">
+        <div class="finance-main">
+          <div class="eyebrow">Opción balanceada · recomendada</div>
+          <h3 style="margin-top:18px">Valor final con crédito</h3>
+          <div class="finance-line"><span>Inversión base de la solución</span><b>$78.000.000</b></div>
+          <div class="finance-line"><span>Visita técnica</span><b>$400.000</b></div>
+          <div class="finance-line"><span>Comisión por estructuración del crédito (7% sobre la inversión base)</span><b>$5.460.000</b></div>
+          <div class="finance-total">
+            <div><span style="display:block;font-weight:900;text-transform:uppercase;font-size:12px;letter-spacing:.08em">Total final</span><small>Solución + visita + comisión de crédito</small></div>
+            <strong>$83.860.000</strong>
+          </div>
+        </div>
+
+        <div class="finance-side">
+          <div class="label">Beneficio final</div>
+          <div class="delta">$1.389.388</div>
+          <p style="font-size:20px;font-weight:800;margin:10px 0 8px">por debajo de la propuesta anterior de $85.249.388.</p>
+          <p class="mini">Y ahora el alcance incluye dos aires inverter eficientes, soporte/estructura de montaje, medidor multidireccional, visita técnica y la comisión asociada al crédito.</p>
+        </div>
+      </div>
+
+      <div class="credit-note">
+        <b>Supuesto financiero usado:</b> la comisión del crédito se calcula como el 7% de la inversión base de $78.000.000, equivalente a $5.460.000. La visita técnica de $400.000 se suma de manera independiente. Si la entidad financiera liquida la comisión sobre una base distinta, este valor deberá ajustarse antes de emitir la oferta contractual.
       </div>
     </div>
   </section>
@@ -438,7 +502,7 @@
       </div>
 
       <div class="source">
-        <b>Claridad comercial:</b> el valor recomendado de <b>$78.000.000</b> ya contempla la solución híbrida, los dos aires inverter, el soporte/estructura de montaje y el medidor multidireccional. No se presentan como adicionales al cierre, salvo cambios derivados de la visita técnica.
+        <b>Claridad comercial:</b> la inversión base recomendada es de <b>$78.000.000</b> e incluye la solución híbrida, los dos aires inverter, el soporte/estructura de montaje y el medidor multidireccional. A este valor se adicionan <b>$400.000</b> de visita técnica y <b>$5.460.000</b> correspondientes a la comisión del crédito del 7%, para un total final financiado de <b>$83.860.000</b>.
       </div>
       <div class="source">
         <b>Nota de cálculo:</b> la proyección usa como referencia comercial híbrida $6.089.242 por kWp y paneles de 620 Wp, redondeando al siguiente panel completo. Los valores son preliminares y se confirman en la oferta final.
